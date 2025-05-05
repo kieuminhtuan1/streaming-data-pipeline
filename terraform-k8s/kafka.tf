@@ -102,7 +102,7 @@ resource "kubernetes_deployment" "kafka_service" {
 
         container {
           name  = "kafka-service"
-          image = "finnhub-streaming-data-pipeline-kafka:latest"
+          image = "streamdataproject-kafka:latest"
 
           port {
             container_port = 9092

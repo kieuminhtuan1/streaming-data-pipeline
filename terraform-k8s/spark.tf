@@ -1,6 +1,6 @@
 resource "helm_release" "spark-on-k8s" {
   name       = "spark-on-k8s"
-  repository = "https://googlecloudplatform.github.io/spark-on-k8s-operator"
+  repository = "https://kubeflow.github.io/spark-operator"
   chart      = "spark-operator"
   namespace  = "spark-operator"
   create_namespace = true

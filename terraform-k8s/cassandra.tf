@@ -46,7 +46,7 @@ resource "kubernetes_deployment" "cassandra" {
 
         container {
           name  = "cassandra"
-          image = "finnhub-streaming-data-pipeline-cassandra:latest"
+          image = "streamdataproject-cassandra:latest"
 
           port {
             container_port = 9042

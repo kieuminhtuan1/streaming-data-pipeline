@@ -10,12 +10,12 @@ metadata:
   name: streamprocessor
   namespace: ${var.namespace}
 spec:
-  type: Scala
+  type: Python                      
+  pythonVersion: "3"                 
   mode: cluster
-  image: docker.io/library/finnhub-streaming-data-pipeline-spark-k8s:latest
   imagePullPolicy: Never
-  mainClass: StreamProcessor
-  mainApplicationFile: "local:///opt/spark/jars/streamprocessor-assembly-1.0.jar"
+  image: docker.io/library/streamdataproject-spark-k8s:latest 
+  mainApplicationFile: "local:///opt/spark/work-dir/StreamProcessor.py"  
   sparkVersion: "3.0.0"
   restartPolicy:
     type: OnFailure
@@ -34,7 +34,13 @@ spec:
     volumeMounts:
       - name: spark-volume
         mountPath: /host
-    javaOptions: "-Dconfig.resource=deployment.conf"
+    env:
+      - name: PYTHONPATH
+        value: "/opt/spark/work-dir"  
+      - name: PYSPARK_PYTHON
+        value: "python3"              
+      - name: PYSPARK_DRIVER_PYTHON
+        value: "python3"              
     envFrom:
     - configMapRef:
         name: pipeline-config
@@ -47,11 +53,20 @@ spec:
     volumeMounts:
       - name: spark-volume
         mountPath: /host
-    javaOptions: "-Dconfig.resource=deployment.conf"
+    env:
+      - name: PYTHONPATH
+        value: "/opt/spark/work-dir"  
+      - name: PYSPARK_PYTHON
+        value: "python3"             
     envFrom:
     - configMapRef:
         name: pipeline-config
     - secretRef:
         name: pipeline-secrets
+  deps:                           
+    jars:
+      - "local:///opt/spark/jars/spark-sql-kafka-0-10_2.12-3.0.0.jar"
+      - "local:///opt/spark/jars/spark-avro_2.12-3.0.0.jar"
+      - "local:///opt/spark/jars/spark-cassandra-connector_2.12-3.0.0.jar"
 YAML
 }

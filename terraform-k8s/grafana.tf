@@ -32,7 +32,7 @@ resource "kubernetes_deployment" "grafana" {
       spec {
         container {
           name  = "grafana"
-          image = "docker.io/library/finnhub-streaming-data-pipeline-grafana:latest"
+          image = "docker.io/library/streamdataproject-grafana:latest"
 
           port {
             container_port = 3000

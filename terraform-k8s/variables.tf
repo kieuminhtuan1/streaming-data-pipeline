@@ -1,3 +1,18 @@
+variable "finnhub_api_token" {
+  description = "API token for Finnhub"
+  type        = string
+}
+
+variable "cassandra_user" {
+  description = "Username for Cassandra"
+  type        = string
+}
+
+variable "cassandra_password" {
+  description = "Password for Cassandra"
+  type        = string
+}
+
 variable "kube_config" {
   type    = string
   default = "~/.kube/config"

@@ -33,7 +33,7 @@ resource "kubernetes_deployment" "finnhubproducer" {
       spec {
         container {
           name  = "finnhubproducer"
-          image = "docker.io/library/finnhub-streaming-data-pipeline-finnhubproducer:latest"
+          image = "docker.io/library/streamdataproject-finnhubproducer:latest"
 
           env_from {
             config_map_ref {
